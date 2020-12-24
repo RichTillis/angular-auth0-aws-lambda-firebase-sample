@@ -6,5 +6,24 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'angular-auth0-aws-lambda-firebase-sample';
+  isLoggedintoAuth0 = true;
+  isLoggedintoFirebase = false;
+  auth0Token = 'Not logged in';
+  firebaseToken = 'Not logged in';
+
+  loginToAuth0() {
+
+  }
+
+  loginToFirebase() {
+
+  }
+
+  loginOutOfAuth0() {
+
+  }
+
+  loginOutOfFirebase() {
+
+  }
 }
