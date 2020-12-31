@@ -13,15 +13,14 @@ export class AppComponent {
 
   constructor(public authService: AuthService) {
     authService.isAuth0Authenticate$.subscribe(loggedIntoAuth0 => {
-      this.isLoggedintoAuth0 = loggedIntoAuth0 ? true : false;
+      this.isLoggedintoAuth0 = loggedIntoAuth0;
     });
     authService.isAwsLambdaAuthTokenGenerated$.subscribe(tokenExists => {
-      this.isTokenGenerated = tokenExists ? true : false;
+      this.isTokenGenerated = tokenExists;
     });
     authService.isFirebaseAuthenticated$.subscribe(loggedIntoFirebase => {
-      this.isLoggedintoFirebase = loggedIntoFirebase ? true : false;
+      this.isLoggedintoFirebase = loggedIntoFirebase;
     });
-
   }
 
   loginToAuth0() {
