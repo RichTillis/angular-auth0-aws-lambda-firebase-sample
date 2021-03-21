@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 
+import { AuthService as Auth0Service } from '@auth0/auth0-angular';
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private auth0Authenticated$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  readonly isAuth0Authenticated$: Observable<boolean> = this.auth0Authenticated$.asObservable();
+  readonly isAuth0Authenticated$: Observable<boolean> = this.auth0Service.isAuthenticated$;
+
+  readonly auth0User$ = this.auth0Service.user$;
 
   private awsLambdaAuthTokenGenerated$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   readonly isAwsLambdaAuthTokenGenerated$: Observable<boolean> = this.awsLambdaAuthTokenGenerated$.asObservable();
@@ -14,14 +17,18 @@ export class AuthService {
   private firebaseAuthenticated$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   readonly isFirebaseAuthenticated$: Observable<boolean> = this.firebaseAuthenticated$.asObservable();
 
-  constructor() { }
+  constructor(private auth0Service: Auth0Service) { }
 
-  loginToAuth0() {
-    this.auth0Authenticated$.next(true);
+  loginToAuth0(): Observable<void> {
+    return this.auth0Service.loginWithRedirect();
+  }
+
+  private logoutOfAuth0() {
+    this.auth0Service.logout();
   }
 
   logout() {
-    this.auth0Authenticated$.next(false);
+    this.logoutOfAuth0();
     this.awsLambdaAuthTokenGenerated$.next(false);
     this.firebaseAuthenticated$.next(false);
   }

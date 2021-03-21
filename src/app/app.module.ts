@@ -7,7 +7,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { IconLogoComponent } from './icon-logo/icon-logo.component'
+import { IconLogoComponent } from './icon-logo/icon-logo.component';
+
+import { AuthModule as Auth0Module } from '@auth0/auth0-angular';
+import { environment as env } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -20,7 +23,8 @@ import { IconLogoComponent } from './icon-logo/icon-logo.component'
     BrowserAnimationsModule,
     MatCardModule,
     MatButtonModule,
-    MatGridListModule
+    MatGridListModule,
+    Auth0Module.forRoot({...env.auth})
   ],
   providers: [],
   bootstrap: [AppComponent]
