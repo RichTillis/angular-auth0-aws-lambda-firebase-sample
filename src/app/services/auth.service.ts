@@ -6,7 +6,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class AuthService {
   private auth0Authenticated$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  readonly isAuth0Authenticate$: Observable<boolean> = this.auth0Authenticated$.asObservable();
+  readonly isAuth0Authenticated$: Observable<boolean> = this.auth0Authenticated$.asObservable();
 
   private awsLambdaAuthTokenGenerated$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   readonly isAwsLambdaAuthTokenGenerated$: Observable<boolean> = this.awsLambdaAuthTokenGenerated$.asObservable();

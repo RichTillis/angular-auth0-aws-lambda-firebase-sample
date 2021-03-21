@@ -8,7 +8,7 @@ import { AuthService } from './services/auth.service'
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  isLoggedintoAuth0$: Observable<boolean> = this.authService.isAuth0Authenticate$;
+  isLoggedintoAuth0$: Observable<boolean> = this.authService.isAuth0Authenticated$;
   isLoggedintoFirebase$: Observable<boolean> = this.authService.isFirebaseAuthenticated$;
   isTokenGenerated$: Observable<boolean> = this.authService.isAwsLambdaAuthTokenGenerated$;
 
