@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
 import { AuthService } from './services/auth.service'
 
 @Component({
@@ -7,21 +8,11 @@ import { AuthService } from './services/auth.service'
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  isLoggedintoAuth0: boolean = false;
-  isLoggedintoFirebase: boolean = false;
-  isTokenGenerated: boolean = false;
+  isLoggedintoAuth0$: Observable<boolean> = this.authService.isAuth0Authenticate$;
+  isLoggedintoFirebase$: Observable<boolean> = this.authService.isFirebaseAuthenticated$;
+  isTokenGenerated$: Observable<boolean> = this.authService.isAwsLambdaAuthTokenGenerated$;
 
-  constructor(public authService: AuthService) {
-    authService.isAuth0Authenticate$.subscribe(loggedIntoAuth0 => {
-      this.isLoggedintoAuth0 = loggedIntoAuth0;
-    });
-    authService.isAwsLambdaAuthTokenGenerated$.subscribe(tokenExists => {
-      this.isTokenGenerated = tokenExists;
-    });
-    authService.isFirebaseAuthenticated$.subscribe(loggedIntoFirebase => {
-      this.isLoggedintoFirebase = loggedIntoFirebase;
-    });
-  }
+  constructor(private authService: AuthService) {  }
 
   loginToAuth0() {
     this.authService.loginToAuth0();
