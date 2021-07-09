@@ -5,32 +5,32 @@ import { BehaviorSubject, Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-  private auth0Authenticated$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  readonly isAuth0Authenticated$: Observable<boolean> = this.auth0Authenticated$.asObservable();
+  private auth0UserSubject$: BehaviorSubject<any> = new BehaviorSubject<any>(undefined);
+  readonly auth0User$: Observable<any> = this.auth0UserSubject$.asObservable();
 
-  private awsLambdaAuthTokenGenerated$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  readonly isAwsLambdaAuthTokenGenerated$: Observable<boolean> = this.awsLambdaAuthTokenGenerated$.asObservable();
+  private firebaseTokenSubject$: BehaviorSubject<string | undefined> = new BehaviorSubject<string | undefined>(undefined);
+  readonly firebaseToken$: Observable<any> = this.firebaseTokenSubject$.asObservable();
 
-  private firebaseAuthenticated$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  readonly isFirebaseAuthenticated$: Observable<boolean> = this.firebaseAuthenticated$.asObservable();
+  private firebaseUserIdSubject$: BehaviorSubject<string | undefined> = new BehaviorSubject<string | undefined>(undefined);
+  readonly firebaseUserId$: Observable<string | undefined> = this.firebaseUserIdSubject$.asObservable();
 
   constructor() { }
 
   loginToAuth0() {
-    this.auth0Authenticated$.next(true);
+    this.auth0UserSubject$.next({name: 'Pretend_Auth0_user'});
   }
 
   logout() {
-    this.auth0Authenticated$.next(false);
-    this.awsLambdaAuthTokenGenerated$.next(false);
-    this.firebaseAuthenticated$.next(false);
+    this.auth0UserSubject$.next(undefined);
+    this.firebaseTokenSubject$.next(undefined);
+    this.firebaseUserIdSubject$.next(undefined);
   }
 
   getTokenFromLambda() {
-    this.awsLambdaAuthTokenGenerated$.next(true);
+    this.firebaseTokenSubject$.next("MyPretendToken_ABCD123EFG456");
   }
 
   loginToFirebase() {
-    this.firebaseAuthenticated$.next(true);
+    this.firebaseUserIdSubject$.next("Pretend_Firebase_user");
   }
 }

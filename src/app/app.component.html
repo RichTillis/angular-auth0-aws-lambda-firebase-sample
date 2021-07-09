@@ -7,20 +7,13 @@
         <mat-card>
           <mat-card-content>
 
-            <button
-              mat-raised-button
-              (click)="loginToAuth0()"
-              class="auth0-color"
-              *ngIf="!(isLoggedintoAuth0$ | async)">Login to Auth0
+            <button mat-raised-button (click)="loginToAuth0()" class="auth0-color"
+              *ngIf="!(auth0User$ | async)">Login to Auth0
             </button>
 
-            <button
-              mat-raised-button
-              (click)="logoutOfAuth0()"
-              class="auth0-color"
-              *ngIf="(isLoggedintoAuth0$ | async)">Logout of Auth0
+            <button mat-raised-button (click)="logoutOfAuth0()" class="auth0-color"
+              *ngIf="(auth0User$ | async)">Logout of Auth0
             </button>
-            
           </mat-card-content>
         </mat-card>
       </mat-grid-tile>
@@ -29,11 +22,8 @@
         <mat-card>
           <mat-card-content>
 
-            <button
-              mat-raised-button
-              (click)="getTokenFromLambda()"
-              class="lambda-color"
-              [disabled]="!(isLoggedintoAuth0$ | async)">AWS Lambda (get key)
+            <button mat-raised-button (click)="getTokenFromLambda()" class="lambda-color"
+              [disabled]="!(auth0User$ | async)">AWS Lambda (get key)
             </button>
 
           </mat-card-content>
@@ -44,24 +34,55 @@
         <mat-card>
           <mat-card-content>
 
-            <button
-              mat-raised-button
-              class="firebase-color" (click)="loginToFirebase()"
-              [disabled]="!(isTokenGenerated$ | async)"
-              *ngIf="!(isLoggedintoFirebase$ | async)">Login to Firebase
+            <button mat-raised-button class="firebase-color" (click)="loginToFirebase()"
+              [disabled]="!(firebaseToken$ | async)" *ngIf="!(firebaseUserId$ | async)">Login to Firebase
             </button>
 
-            <button
-              mat-raised-button
-              class="firebase-color"
-              (click)="logoutOfFirebase()"
-              *ngIf="(isLoggedintoFirebase$ | async)">Logout of Firebase
+            <button mat-raised-button class="firebase-color" (click)="logoutOfFirebase()"
+              *ngIf="(firebaseUserId$ | async)">Logout of Firebase
             </button>
 
           </mat-card-content>
         </mat-card>
       </mat-grid-tile>
 
+    </mat-grid-list>
+
+    <mat-grid-list cols="3" rowHeight="4:1">
+
+      <mat-grid-tile *ngIf="auth0User$ | async as user">
+        <mat-card>
+          <mat-card-content>
+            <div>
+              Auth0 User Name:<br />
+              {{ user.name }}
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </mat-grid-tile>
+
+      <mat-grid-tile *ngIf="firebaseToken$ | async as token">
+        <mat-card>
+          <mat-card-content>
+            <div>
+              Firebase Auth Token:<br>
+              <p id="firebase-token">{{ token! }}</p>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </mat-grid-tile>
+
+      <mat-grid-tile *ngIf="firebaseUserId$ | async as firebaseUser">
+        <mat-card>
+          <mat-card-content>
+            <div>
+              Firebase User Id:<br />
+              {{ firebaseUser }}
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </mat-grid-tile>
+      
     </mat-grid-list>
   </div>
 </div>

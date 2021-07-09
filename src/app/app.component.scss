@@ -40,3 +40,10 @@ button {
 .firebase-color {
   background-color: #ffc400;
 }
+
+#firebase-token{
+  overflow: hidden;
+  max-width: 24ch;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
