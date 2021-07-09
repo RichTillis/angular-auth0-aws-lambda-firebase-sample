@@ -31,6 +31,6 @@ export class AppComponent {
   }
 
   logoutOfFirebase() {
-    this.authService.logout();
+    this.authService.logoutOfFirebase();
   }
 }

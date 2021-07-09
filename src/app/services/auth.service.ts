@@ -20,17 +20,22 @@ export class AuthService {
     this.auth0UserSubject$.next({name: 'Pretend_Auth0_user'});
   }
 
-  logout() {
-    this.auth0UserSubject$.next(undefined);
-    this.firebaseTokenSubject$.next(undefined);
-    this.firebaseUserIdSubject$.next(undefined);
-  }
-
   getTokenFromLambda() {
     this.firebaseTokenSubject$.next("MyPretendToken_ABCD123EFG456");
   }
 
   loginToFirebase() {
     this.firebaseUserIdSubject$.next("Pretend_Firebase_user");
+  }
+
+  logout() {
+    this.auth0UserSubject$.next(undefined);
+    this.firebaseTokenSubject$.next(undefined);
+    this.firebaseUserIdSubject$.next(undefined);
+  }
+
+  logoutOfFirebase(){
+    this.firebaseTokenSubject$.next(undefined);
+    this.firebaseUserIdSubject$.next(undefined);
   }
 }
